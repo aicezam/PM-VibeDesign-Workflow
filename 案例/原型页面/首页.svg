@@ -1,0 +1,111 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景板 -->
+  <rect width="1440" height="900" fill="#F5F7FA"/>
+  
+  <!-- 左侧：移动端 UI 框架 (390x800) -->
+  <rect x="100" y="50" width="390" height="800" rx="32" fill="#121212" stroke="#E5E6EB" stroke-width="4"/>
+  
+  <!-- Header -->
+  <g transform="translate(124, 100)"><text font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFFFFF">今日运动</text></g>
+  
+  <!-- 模块 1：运动数据统计 -->
+  <rect x="124" y="130" width="106" height="80" rx="16" fill="#1E1E1E"/>
+  <g transform="translate(140, 160)"><text font-family="Arial, sans-serif" font-size="12" fill="#888888">消耗(kcal)</text></g>
+  <g transform="translate(140, 190)"><text font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#A6FF00">450</text></g>
+  
+  <rect x="242" y="130" width="106" height="80" rx="16" fill="#1E1E1E"/>
+  <g transform="translate(258, 160)"><text font-family="Arial, sans-serif" font-size="12" fill="#888888">时长(分钟)</text></g>
+  <g transform="translate(258, 190)"><text font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFFFFF">60</text></g>
+  
+  <rect x="360" y="130" width="106" height="80" rx="16" fill="#1E1E1E"/>
+  <g transform="translate(376, 160)"><text font-family="Arial, sans-serif" font-size="12" fill="#888888">连续天数</text></g>
+  <g transform="translate(376, 190)"><text font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFFFFF">5</text></g>
+  
+  <!-- 模块 2：每日目标管理 -->
+  <g transform="translate(124, 250)"><text font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">每日目标</text></g>
+  
+  <!-- 环形进度条 (底圈与进度圈) -->
+  <circle cx="295" cy="380" r="80" fill="none" stroke="#1E1E1E" stroke-width="16"/>
+  <!-- 进度计算：502周长，85%约为427 -->
+  <circle cx="295" cy="380" r="80" fill="none" stroke="#A6FF00" stroke-width="16" stroke-dasharray="427 503" stroke-linecap="round" transform="rotate(-90 295 380)"/>
+  
+  <!-- 进度文本 -->
+  <g transform="translate(272, 376)"><text font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF">425</text></g>
+  <g transform="translate(265, 396)"><text font-family="Arial, sans-serif" font-size="12" fill="#888888">/ 500 kcal</text></g>
+  
+  <!-- 开始训练按钮 -->
+  <rect x="124" y="490" width="342" height="48" rx="24" fill="#A6FF00"/>
+  <g transform="translate(265, 520)"><text font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#121212">开始训练</text></g>
+  
+  <!-- 模块 3：课程推荐 -->
+  <g transform="translate(124, 580)"><text font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">为你推荐</text></g>
+  
+  <!-- 课程卡片 1 -->
+  <rect x="124" y="600" width="200" height="150" rx="16" fill="#1E1E1E"/>
+  <rect x="124" y="600" width="200" height="90" rx="16" fill="#2C2C2C"/>
+  <g transform="translate(140, 715)"><text font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF">HIIT 燃脂挑战</text></g>
+  <g transform="translate(140, 735)"><text font-family="Arial, sans-serif" font-size="12" fill="#888888">20分钟 · K3高级</text></g>
+  
+  <!-- 课程卡片 2 (部分露出以提示横向滑动) -->
+  <rect x="340" y="600" width="126" height="150" rx="16" fill="#1E1E1E"/>
+  <rect x="340" y="600" width="126" height="90" rx="16" fill="#2C2C2C"/>
+  <g transform="translate(356, 715)"><text font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF">核心力量基础</text></g>
+  <g transform="translate(356, 735)"><text font-family="Arial, sans-serif" font-size="12" fill="#888888">15分钟</text></g>
+  
+  <!-- 模块 4：底部导航 -->
+  <!-- 遮挡底层内容的导航背景板 -->
+  <rect x="102" y="766" width="386" height="82" rx="30" fill="#121212"/>
+  <rect x="102" y="766" width="386" height="50" fill="#121212"/>
+  <line x1="102" y1="766" x2="488" y2="766" stroke="#1E1E1E" stroke-width="1"/>
+  
+  <!-- 首页 -->
+  <path d="M137 792 L149 780 L161 792 M141 792 L141 802 L157 802 L157 792" fill="none" stroke="#A6FF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(137, 820)"><text font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#A6FF00">首页</text></g>
+  
+  <!-- 计划 -->
+  <rect x="236" y="782" width="20" height="20" rx="2" fill="none" stroke="#888888" stroke-width="2"/>
+  <line x1="236" y1="788" x2="256" y2="788" stroke="#888888" stroke-width="2"/>
+  <line x1="241" y1="780" x2="241" y2="784" stroke="#888888" stroke-width="2" stroke-linecap="round"/>
+  <line x1="251" y1="780" x2="251" y2="784" stroke="#888888" stroke-width="2" stroke-linecap="round"/>
+  <g transform="translate(234, 820)"><text font-family="Arial, sans-serif" font-size="12" fill="#888888">计划</text></g>
+  
+  <!-- 统计 -->
+  <line x1="332" y1="802" x2="356" y2="802" stroke="#888888" stroke-width="2" stroke-linecap="round"/>
+  <line x1="336" y1="802" x2="336" y2="792" stroke="#888888" stroke-width="2" stroke-linecap="round"/>
+  <line x1="344" y1="802" x2="344" y2="784" stroke="#888888" stroke-width="2" stroke-linecap="round"/>
+  <line x1="352" y1="802" x2="352" y2="788" stroke="#888888" stroke-width="2" stroke-linecap="round"/>
+  <g transform="translate(332, 820)"><text font-family="Arial, sans-serif" font-size="12" fill="#888888">统计</text></g>
+  
+  <!-- 我的 -->
+  <circle cx="441" cy="788" r="6" fill="none" stroke="#888888" stroke-width="2"/>
+  <path d="M433 802 C433 796 449 796 449 802" fill="none" stroke="#888888" stroke-width="2" stroke-linecap="round"/>
+  <g transform="translate(429, 820)"><text font-family="Arial, sans-serif" font-size="12" fill="#888888">我的</text></g>
+  
+  <!-- 右侧：交互规则说明面板 -->
+  <rect x="540" y="50" width="850" height="800" rx="16" fill="#FFFFFF" stroke="#E5E6EB" stroke-width="1"/>
+  <g transform="translate(580, 100)"><text font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1F2329">健身 App 首页 - 交互规则说明</text></g>
+  
+  <g transform="translate(580, 150)"><text font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1F2329">1. 业务逻辑与数据规则</text></g>
+  <g transform="translate(580, 180)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 运动数据：数据来源于本地记录或三方授权，次日 00:00 自动重置。</text></g>
+  <g transform="translate(580, 204)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 连续天数：按自然日连续完成任意训练计算，中断即归零（重置逻辑）。</text></g>
+  <g transform="translate(580, 228)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 每日目标计算公式：进度百分比 = (已消耗 kcal / 目标 kcal) × 100%，最高 100%。</text></g>
+  <g transform="translate(580, 252)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 课程推荐：读取用户历史偏好及未完成计划进行推荐，缺省用“待补充”占位。</text></g>
+
+  <g transform="translate(580, 302)"><text font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1F2329">2. 交互状态映射</text></g>
+  <g transform="translate(580, 332)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 【开始训练按钮】：点击 -> 缩放及防重 -> 进入快捷训练选择 -> 完成后局部刷新数据。</text></g>
+  <g transform="translate(580, 356)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 【课程推荐列表】：左滑 -> 隐藏原生滚动条，平滑滚动 -> 露出更多推荐课程。</text></g>
+  <g transform="translate(580, 380)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 【课程卡片】：点击 -> 缩放反馈及透明度变化 -> 路由跳转至对应课程详情页。</text></g>
+  <g transform="translate(580, 404)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 【底部导航栏】：点击非当前项 -> 图标点亮/变色高亮 -> 切换至对应一级页面。</text></g>
+  
+  <g transform="translate(580, 454)"><text font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1F2329">3. 异常与边界状态</text></g>
+  <g transform="translate(580, 484)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 数据加载中：首屏进入及下拉刷新期间，核心数据区与课程推荐区展示骨架屏加载状态。</text></g>
+  <g transform="translate(580, 508)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 弱网/无网络：顶部轻提示“网络连接不可用”，显示本地缓存数据或骨架屏。</text></g>
+  <g transform="translate(580, 532)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 权限不足：未授权设备健康数据时，统计区显示“待授权”，点击呼出系统设置引导。</text></g>
+
+  <g transform="translate(580, 582)"><text font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1F2329">10. 空态规则</text></g>
+  <g transform="translate(580, 612)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 运动数据空态：若无历史运动数据，统计显示为 0，环形进度条置灰。</text></g>
+  <g transform="translate(580, 636)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 推荐课程空态：网络异常或无数据时，推荐课程显示默认新手课程卡片。</text></g>
+
+  <g transform="translate(580, 686)"><text font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1F2329">11. 其他规则</text></g>
+  <g transform="translate(580, 716)"><text font-family="Arial, sans-serif" font-size="14" fill="#4E5969">· 下拉刷新：页面顶部下拉超 60px 触发全局数据同步，伴随阻尼动画及 Loading 图标。</text></g>
+</svg>

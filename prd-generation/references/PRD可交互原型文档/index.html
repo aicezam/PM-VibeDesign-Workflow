@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【项目名称】 产品需求文档</title>
+    <script src="./static/tailwindcss.js"></script>
+    <script src="./static/mermaid.min.js"></script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .nav-link.active { background-color: #374151; border-left: 4px solid #3b82f6; }
+        .accordion-content { transition: max-height 0.3s ease-in-out; max-height: 0; overflow: hidden; }
+        .accordion-content.open { max-height: 5000px; }
+    </style>
+</head>
+
+<body class="bg-gray-100 flex flex-col md:flex-row h-screen overflow-hidden text-gray-800 font-sans relative">
+    <!-- Mobile Header -->
+    <div class="md:hidden bg-gray-950 text-white p-4 flex justify-between items-center shrink-0 z-20 shadow-md">
+        <h1 class="text-lg font-bold truncate">PRD 文档</h1>
+        <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+    </div>
+
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden"></div>
+    <!-- Sidebar -->
+    <aside id="sidebar" class="absolute md:relative z-30 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out w-64 bg-gray-900 text-gray-300 flex flex-col h-full shadow-lg shrink-0">
+        <div class="p-6 bg-gray-950 flex justify-between items-center">
+            <div>
+                <h1 class="text-xl font-bold text-white">【项目名称】</h1>
+            <p class="text-sm mt-2 text-gray-400">产品需求文档 (PRD)</p>
+            </div>
+            <button id="close-sidebar-btn" class="md:hidden text-gray-400 hover:text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1">
+                <li><a href="#overview" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">1. 文档概述</a></li>
+                <li><a href="#background" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">2. 产品目标与背景</a></li>
+                <li><a href="#users" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">3. 用户与使用场景</a></li>
+                <li><a href="#features" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">4. 功能清单（核心）</a></li>
+                <li><a href="#flow" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">5. 功能流程图</a></li>
+                <li><a href="#ui_req" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">6. 页面说明与交互细节</a></li>
+                <li><a href="#data_req" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">7. 数据需求</a></li>
+                <li><a href="#interfaces" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">8. 接口需求（选填）</a></li>
+                <li><a href="#non_func" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">9. 非功能性需求</a></li>
+                <li><a href="#dependencies" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">10. 依赖与风险</a></li>
+                <li><a href="#faq" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">11. FAQ（选填）</a></li>
+                <li><a href="#acceptance" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">12. 验收标准</a></li>
+                <li><a href="#roadmap" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">13. 后续规划（选填）</a></li>
+                <li><a href="#appendix" class="nav-link block px-6 py-2 hover:bg-gray-800 hover:text-white transition">14. 附录（选填）</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 h-full overflow-y-auto p-4 md:p-8 relative scroll-smooth w-full" id="main-content">
+        <div class="max-w-5xl mx-auto space-y-6 md:space-y-12">
+            
+            <!-- Section 1: Overview -->
+            <section id="overview" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">1. 文档概述</h2>
+                
+                <div class="overflow-x-auto mb-6">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            <tr><td class="px-6 py-3 font-medium text-gray-900 bg-gray-50 w-32">文档名称</td><td class="px-6 py-3 text-gray-600">【产品/项目名称】需求文档</td></tr>
+                            <tr><td class="px-6 py-3 font-medium text-gray-900 bg-gray-50">模块/范围</td><td class="px-6 py-3 text-gray-600">【本次需求涉及的产品模块或功能范围】</td></tr>
+                            <tr><td class="px-6 py-3 font-medium text-gray-900 bg-gray-50">作者</td><td class="px-6 py-3 text-gray-600">【产品经理姓名】</td></tr>
+                            <tr><td class="px-6 py-3 font-medium text-gray-900 bg-gray-50">创建时间</td><td class="px-6 py-3 text-gray-600">【YYYY-MM-DD】</td></tr>
+                            <tr><td class="px-6 py-3 font-medium text-gray-900 bg-gray-50">当前版本</td><td class="px-6 py-3 text-gray-600">【如 v1.0】</td></tr>
+                            <tr><td class="px-6 py-3 font-medium text-gray-900 bg-gray-50">相关文档</td><td class="px-6 py-3 text-gray-600 whitespace-pre-line">【相关设计稿、接口文档、用户手册等，用换行分隔】</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">1.1 修订历史</h3>
+                <div class="overflow-x-auto mb-6">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">版本</th>
+                                <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">日期</th>
+                                <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">作者</th>
+                                <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">变更说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            <tr><td class="px-6 py-3 text-gray-600">v1.0</td><td class="px-6 py-3 text-gray-600">【日期】</td><td class="px-6 py-3 text-gray-600">【作者】</td><td class="px-6 py-3 text-gray-600">【初始版本】</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">1.2 文档说明</h3>
+                <p class="text-gray-600 text-sm italic">本文档面向产品、设计、研发、测试，描述需求、页面结构、交互流程、业务规则与边界条件。阅读者应具备基础的业务背景知识。</p>
+            </section>
+
+            <!-- Section 2: Background -->
+            <section id="background" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">2. 产品目标与背景</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-blue-600 mb-3">2.1 产品定位与目标用户</h3>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                            <li><strong>产品定位：</strong>【一句话说明产品是什么，为谁提供什么核心价值】</li>
+                            <li><strong>目标用户：</strong>【核心用户群体画像、年龄段、特征等】</li>
+                            <li><strong>核心场景：</strong>【用户在什么情况下会使用本产品】</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-blue-600 mb-3">2.2 背景说明</h3>
+                        <p class="text-gray-600 mb-2">【说明为什么要做这个产品/功能，从市场环境、用户痛点、业务现状等角度阐述】：</p>
+                        <div class="bg-gray-50 p-4 rounded text-gray-600 text-sm border border-gray-200">
+                            <strong>示例：</strong><br>
+                            随着在线教育用户规模增长，用户反馈课程退款流程繁琐，平均退款时长超过72小时，影响用户满意度。竞品分析显示，头部产品已将退款时长压缩至4小时内。为提升用户留存和口碑，需优化退款流程。
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-blue-600 mb-3">2.3 产品目标</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">目标维度</th>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">当前状态</th>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">目标状态</th>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">提升幅度</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white">
+                                    <tr><td class="px-6 py-3 text-gray-600">【指标1，如退款时长】</td><td class="px-6 py-3 text-gray-600">【当前值】</td><td class="px-6 py-3 text-gray-600">【目标值】</td><td class="px-6 py-3 text-gray-600">【提升X%】</td></tr>
+                                    <tr><td class="px-6 py-3 text-gray-600">【指标2，如转化率】</td><td class="px-6 py-3 text-gray-600">【当前值】</td><td class="px-6 py-3 text-gray-600">【目标值】</td><td class="px-6 py-3 text-gray-600">【提升X%】</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-blue-600 mb-3">2.4 成功标准</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-center"><input type="checkbox" class="mr-2 rounded text-blue-600 focus:ring-blue-500" disabled> 【指标1】达到目标值</li>
+                            <li class="flex items-center"><input type="checkbox" class="mr-2 rounded text-blue-600 focus:ring-blue-500" disabled> 【指标2】达到目标值</li>
+                            <li class="flex items-center"><input type="checkbox" class="mr-2 rounded text-blue-600 focus:ring-blue-500" disabled> 【无重大客诉/故障】</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Users and Scenarios -->
+            <section id="users" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">3. 用户与使用场景</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">3.1 用户角色</h3>
+                        <p class="text-sm text-gray-600 mb-2 font-semibold">系统内角色：</p>
+                        <div class="overflow-x-auto mb-4">
+                            <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase w-1/4">角色</th>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase w-1/3">定义/描述</th>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">典型系统能力范围</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white">
+                                    <tr><td class="px-6 py-3 font-medium text-gray-900">【普通用户】</td><td class="px-6 py-3 text-gray-600">【说明什么条件下成为该角色】</td><td class="px-6 py-3 text-gray-600">【该角色在系统中的主要功能权限】</td></tr>
+                                    <tr><td class="px-6 py-3 font-medium text-gray-900">【管理员】</td><td class="px-6 py-3 text-gray-600">【说明该角色的职责范围】</td><td class="px-6 py-3 text-gray-600">【该角色的功能权限】</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p class="text-sm text-gray-600 mb-2 font-semibold mt-4">外部组织与流程参与方：</p>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase w-1/4">组织/角色</th>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase w-1/3">在系统中的体现</th>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">备注</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white">
+                                    <tr><td class="px-6 py-3 font-medium text-gray-900">【如供应商】</td><td class="px-6 py-3 text-gray-600">【作为某流程的发起方或接收方】</td><td class="px-6 py-3 text-gray-600">【说明参与方式】</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">3.2 使用场景</h3>
+                        <div class="bg-blue-50 p-5 rounded-lg border border-blue-100">
+                            <h4 class="font-bold text-blue-800 mb-3">场景1：【场景名称】</h4>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-blue-200 text-sm border border-blue-200 bg-white">
+                                    <tbody class="divide-y divide-blue-100">
+                                        <tr><td class="px-4 py-2 font-medium text-gray-700 bg-blue-50 w-24">用户</td><td class="px-4 py-2 text-gray-600">【目标用户】</td></tr>
+                                        <tr><td class="px-4 py-2 font-medium text-gray-700 bg-blue-50">场景</td><td class="px-4 py-2 text-gray-600">【在什么环境/条件下触发，如：工作日上午，在PC端】</td></tr>
+                                        <tr><td class="px-4 py-2 font-medium text-gray-700 bg-blue-50">触发</td><td class="px-4 py-2 text-gray-600">【用户如何开始这个流程】</td></tr>
+                                        <tr><td class="px-4 py-2 font-medium text-gray-700 bg-blue-50">目标</td><td class="px-4 py-2 text-gray-600">【用户想达成什么】</td></tr>
+                                        <tr><td class="px-4 py-2 font-medium text-gray-700 bg-blue-50">关键行为</td><td class="px-4 py-2 text-gray-600">【主要操作步骤】</td></tr>
+                                        <tr><td class="px-4 py-2 font-medium text-gray-700 bg-blue-50">期望结果</td><td class="px-4 py-2 text-gray-600">【用户期望的系统反馈】</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Features -->
+            <section id="features" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">4. 功能清单（核心）</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">4.1 功能总览</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-500 uppercase">编号</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-500 uppercase">功能名称</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-500 uppercase">所属模块</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-500 uppercase">描述</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-500 uppercase">优先级</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-500 uppercase">备注</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white">
+                                    <tr>
+                                        <td class="px-4 py-3 text-gray-600">F001</td>
+                                        <td class="px-4 py-3 font-medium text-gray-900">【功能名称】</td>
+                                        <td class="px-4 py-3 text-gray-600">【模块名】</td>
+                                        <td class="px-4 py-3 text-gray-600">【一句话描述功能】</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-red-100 text-red-800 rounded text-xs">P0</span></td>
+                                        <td class="px-4 py-3 text-gray-600">【必做/核心】</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 text-gray-600">F002</td>
+                                        <td class="px-4 py-3 font-medium text-gray-900">【功能名称】</td>
+                                        <td class="px-4 py-3 text-gray-600">【模块名】</td>
+                                        <td class="px-4 py-3 text-gray-600">【一句话描述功能】</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-orange-100 text-orange-800 rounded text-xs">P1</span></td>
+                                        <td class="px-4 py-3 text-gray-600">【重要】</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">4.2 模块说明（可复用能力）</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">模块</th>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">类型</th>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">核心职责</th>
+                                        <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase">对外接口/依赖</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white">
+                                    <tr><td class="px-6 py-3 font-medium text-gray-900">【模块1】</td><td class="px-6 py-3 text-gray-600">业务模块/公共模块</td><td class="px-6 py-3 text-gray-600">【模块做什么】</td><td class="px-6 py-3 text-gray-600">【依赖哪些系统/模块】</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">4.3 业务规则（全局）</h3>
+                        <div class="bg-gray-50 p-5 rounded-lg border border-gray-200 space-y-4">
+                            <div>
+                                <h4 class="font-bold text-gray-800">规则 1：【规则名称，如：数据统计规则】</h4>
+                                <ul class="list-disc pl-5 mt-2 text-gray-600 space-y-1">
+                                    <li>【逻辑1，如：卡路里消耗：累计当日所有训练的卡路里消耗】</li>
+                                    <li>【逻辑2，如：连续天数：从最近一次运动日开始，连续运动的天数】</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">规则 2：【规则名称，如：目标进度计算】</h4>
+                                <ul class="list-disc pl-5 mt-2 text-gray-600 space-y-1">
+                                    <li>【逻辑1，如：进度百分比 = (已完成卡路里 / 目标卡路里) × 100%】</li>
+                                    <li>【逻辑2，如：进度超过 100% 时，显示为 100%】</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Process Flow -->
+            <section id="flow" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">5. 功能流程图</h2>
+                
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">5.1 业务流程图</h3>
+                <div class="bg-gray-50 p-4 md:p-6 rounded-lg border border-gray-200 flex justify-center overflow-x-auto mb-8">
+                    <div class="mermaid">
+                        graph TD
+                            A[开始] --> B[用户登录]
+                            B --> C{校验是否通过}
+                            C -->|通过| D[进入首页]
+                            C -->|失败| E[提示错误信息]
+                            E --> B
+                            D --> F[用户操作]
+                            F --> G{操作是否成功}
+                            G -->|成功| H[展示结果]
+                            G -->|失败| I[展示错误]
+                            H --> J{是否继续操作}
+                            J -->|是| F
+                            J -->|否| K[结束]
+                            I --> F
+                            
+                            classDef default fill:#fff,stroke:#cbd5e1,stroke-width:2px,color:#334155,border-radius:6px;
+                            classDef decision fill:#fef08a,stroke:#eab308,stroke-width:2px;
+                            class C,G,J decision;
+                    </div>
+                </div>
+
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">5.2 页面流程图</h3>
+                <div class="bg-gray-50 p-4 md:p-6 rounded-lg border border-gray-200 flex justify-center overflow-x-auto">
+                    <div class="mermaid">
+                        graph LR
+                            A[页面A] -->|跳转| B[页面B]
+                            B -->|返回| A
+                            B -->|跳转| C[页面C]
+                            C -->|返回| B
+                            
+                            classDef default fill:#e0f2fe,stroke:#3b82f6,stroke-width:2px,color:#1e40af,border-radius:6px;
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: UI & Interaction -->
+            <section id="ui_req" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">6. 页面说明与交互细节（按模块拆分）</h2>
+                
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-blue-600 mb-4">6.1 全局交互规范</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                            <h4 class="font-bold text-gray-800 mb-2">6.1.1 布局框架</h4>
+                            <ul class="list-disc pl-5 text-gray-600 space-y-1 text-sm">
+                                <li><strong>结构：</strong>采用【如：顶部导航+左侧菜单+主内容区】布局</li>
+                                <li><strong>顶部栏：</strong>包含【如：Logo、搜索、消息通知、用户头像】等功能</li>
+                                <li><strong>内容区：</strong>采用【如：左右布局、自适应宽度】方式</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                            <h4 class="font-bold text-gray-800 mb-2">6.1.3 通用交互规则</h4>
+                            <ul class="list-disc pl-5 text-gray-600 space-y-1 text-sm">
+                                <li><strong>加载状态：</strong>【如：骨架屏/loading图标，超过3秒显示进度】</li>
+                                <li><strong>空状态：</strong>【如：显示空态插图+引导文案】</li>
+                                <li><strong>错误状态：</strong>【如：红色提示条+错误描述+重试按钮】</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module Accordions -->
+                <div class="space-y-4">
+                    <!-- Module 1 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="w-full px-6 py-4 text-left bg-blue-50 hover:bg-blue-100 font-bold text-blue-900 flex justify-between items-center focus:outline-none" onclick="toggleAccordion('module-1')">
+                            <span class="text-lg">6.2 【模块一：XXX】</span>
+                            <span class="text-blue-400 transform transition-transform duration-200" style="transform: rotate(180deg);" id="icon-module-1">▼</span>
+                        </button>
+                        <div id="module-1" class="accordion-content bg-white open">
+                            <div class="p-6 border-t border-gray-200">
+                                
+                                <div class="mb-8">
+                                    <h4 class="text-lg font-bold text-gray-800 mb-3 border-l-4 border-blue-500 pl-3">6.2.1 【页面：XXX页面】</h4>
+                                    <p class="text-sm text-gray-600 mb-2"><strong>页面描述：</strong>【说明页面的定位和核心功能，一句话概括】</p>
+                                    <p class="text-sm text-gray-600 mb-4"><strong>入口：</strong>【如：左侧菜单「XXX」点击进入 / URL: /xxx/xxx】</p>
+                                    
+                                    <h5 class="font-semibold text-gray-800 mb-2">页面结构：</h5>
+                                    <div class="bg-gray-800 text-green-400 p-4 rounded text-sm font-mono mb-4 md:mb-6 overflow-x-auto whitespace-pre">+----------------------------------+
+|  页面标题              [操作按钮]  |
++----------------------------------+
+|  筛选区                          |
+|  [筛选条件1] [筛选条件2] [搜索]    |
++----------------------------------+
+|  数据列表/卡片区                  |
+|  +------+  +------+  +------+    |
+|  | 卡片1 |  | 卡片2 |  | 卡片3 |    |
+|  +------+  +------+  +------+    |
++----------------------------------+
+|  分页器/加载更多                  |
++----------------------------------+</div>
+                                    
+                                    <h5 class="font-semibold text-gray-800 mb-3">功能说明：</h5>
+                                    <div class="bg-gray-50 p-4 rounded border border-gray-200 mb-4">
+                                        <h6 class="font-bold text-blue-700 mb-2">功能 1：【功能名称，如：运动数据统计】</h6>
+                                        <ul class="list-disc pl-5 text-sm text-gray-600 space-y-2">
+                                            <li><strong>需求描述：</strong>【描述用户在这个功能里能做什么、看到什么】</li>
+                                            <li><strong>业务价值：</strong>【价值点1，如：让用户快速了解今日运动成果】</li>
+                                            <li><strong>功能要求：</strong>【要求1，如：显示三个核心指标：卡路里消耗、运动分钟数等】</li>
+                                        </ul>
+                                    </div>
+
+                                    <h5 class="font-semibold text-gray-800 mb-3">流程与交互：</h5>
+                                    <ul class="list-none pl-0 text-sm text-gray-600 space-y-3 mb-6">
+                                        <li class="flex"><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded mr-3 h-7 shrink-0">Step 1</span> <div><strong>【操作名称】</strong><br>用户点击【按钮/区域】 -> 系统执行【动作】 -> 页面【变化】</div></li>
+                                        <li class="flex"><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded mr-3 h-7 shrink-0">Step 2</span> <div><strong>【校验/分支】</strong><br>校验条件：【如：字段A必填】<br>校验通过：进入下一步<br>校验失败：显示错误提示【如："XXX不能为空"】</div></li>
+                                    </ul>
+
+                                    <h5 class="font-semibold text-gray-800 mb-3">字段说明：</h5>
+                                    <div class="overflow-x-auto mb-4">
+                                        <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                                            <thead class="bg-gray-50">
+                                                <tr>
+                                                    <th class="px-4 py-2 text-left font-medium text-gray-500">字段名称</th>
+                                                    <th class="px-4 py-2 text-left font-medium text-gray-500">类型</th>
+                                                    <th class="px-4 py-2 text-left font-medium text-gray-500">必填</th>
+                                                    <th class="px-4 py-2 text-left font-medium text-gray-500">校验规则</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-gray-200 bg-white">
+                                                <tr><td class="px-4 py-2">【字段A】</td><td class="px-4 py-2">文本</td><td class="px-4 py-2 text-red-500">是</td><td class="px-4 py-2 text-gray-600">【如：最多50字符】</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-lg font-bold text-gray-800 mb-3 border-l-4 border-purple-500 pl-3">6.2.2 【页面：XXX弹窗/抽屉】</h4>
+                                    <p class="text-sm text-gray-600 mb-2"><strong>弹窗描述：</strong>【说明弹窗的用途】</p>
+                                    <div class="bg-gray-800 text-green-400 p-4 rounded text-sm font-mono mb-4 overflow-x-auto whitespace-pre">+--------------------------------+
+|  标题            [关闭按钮]      |
++--------------------------------+
+|  表单区域                       |
+|  [字段1] [字段2]                |
++--------------------------------+
+|  操作区                         |
+|         [取消]  [确认]           |
++--------------------------------+</div>
+                                    <h5 class="font-semibold text-gray-800 mb-2">交互细节：</h5>
+                                    <div class="overflow-x-auto">
+                                        <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                                            <thead class="bg-gray-50">
+                                                <tr><th class="px-4 py-2 text-left font-medium text-gray-500 w-1/4">场景</th><th class="px-4 py-2 text-left font-medium text-gray-500">交互</th></tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-gray-200 bg-white">
+                                                <tr><td class="px-4 py-2 font-medium">点击取消</td><td class="px-4 py-2 text-gray-600">【如：关闭弹窗，不保存数据】</td></tr>
+                                                <tr><td class="px-4 py-2 font-medium">点击确认</td><td class="px-4 py-2 text-gray-600">【如：校验通过后提交，关闭弹窗，刷新列表】</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Data Requirements -->
+            <section id="data_req" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">7. 数据需求</h2>
+                
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">7.1 数据统计口径</h3>
+                <div class="overflow-x-auto mb-6">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">指标名称</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">定义</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">计算公式</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">数据来源</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            <tr>
+                                <td class="px-4 py-3 font-medium text-gray-900">【如：日活跃用户】</td>
+                                <td class="px-4 py-3 text-gray-600">【明确定义什么算"活跃"】</td>
+                                <td class="px-4 py-3 text-gray-600 font-mono text-xs">DAU = 当天有任意行为的去重用户数</td>
+                                <td class="px-4 py-3 text-gray-600">【如：user_behavior表】</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">7.2 数据权限</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">角色</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">可查看数据范围</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            <tr><td class="px-4 py-2 font-medium text-gray-900">【角色1】</td><td class="px-4 py-2 text-gray-600">【如：仅可见自己创建的数据】</td></tr>
+                            <tr><td class="px-4 py-2 font-medium text-gray-900">【角色2】</td><td class="px-4 py-2 text-gray-600">【如：可见本部门所有数据】</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section 8: Interfaces -->
+            <section id="interfaces" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">8. 接口需求（选填）</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-blue-600 mb-3">8.1 外部接口</h3>
+                        <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                            <h4 class="font-bold text-gray-800 mb-2">【第三方系统名称】</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                <li><strong>用途：</strong>【做什么】</li>
+                                <li><strong>交互说明：</strong>【描述调用逻辑或数据交换方式】</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-blue-600 mb-3">8.2 内部接口</h3>
+                        <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                            <h4 class="font-bold text-gray-800 mb-2">【系统/服务名称】</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                <li><strong>用途：</strong>【做什么】</li>
+                                <li><strong>交互说明：</strong>【描述调用逻辑或数据交换方式】</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Non-Functional -->
+            <section id="non_func" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">9. 非功能性需求</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">9.1 性能要求</h3>
+                        <ul class="list-disc pl-5 space-y-2 text-sm text-gray-600">
+                            <li><strong>页面加载时长：</strong>【如：首屏加载 &lt; 2秒】</li>
+                            <li><strong>接口响应时长：</strong>【如：P99 &lt; 500ms】</li>
+                            <li><strong>并发支持：</strong>【如：支持1000并发用户】</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">9.2 可用性要求</h3>
+                        <ul class="list-disc pl-5 space-y-2 text-sm text-gray-600">
+                            <li><strong>系统可用性：</strong>【如：99.9%】</li>
+                            <li><strong>容灾能力：</strong>【如：主服务故障时自动切换到备用服务】</li>
+                            <li><strong>数据备份：</strong>【如：每日全量备份】</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">9.3 安全要求</h3>
+                        <ul class="list-disc pl-5 space-y-2 text-sm text-gray-600">
+                            <li><strong>身份认证：</strong>【如：支持SSO/OAuth2.0】</li>
+                            <li><strong>数据安全：</strong>【如：敏感数据加密存储，传输使用HTTPS】</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">9.4 兼容性要求</h3>
+                        <ul class="list-disc pl-5 space-y-2 text-sm text-gray-600">
+                            <li><strong>浏览器：</strong>【如：Chrome 80+、Edge 80+】</li>
+                            <li><strong>移动端：</strong>【如：iOS 12+、Android 8+】</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Dependencies and Risks -->
+            <section id="dependencies" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">10. 依赖与风险</h2>
+                
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">10.1 外部/内部依赖</h3>
+                <div class="overflow-x-auto mb-6">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">依赖方</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">依赖内容</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">交付时间</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">备注</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            <tr><td class="px-4 py-2 font-medium">【如：第三方支付】</td><td class="px-4 py-2 text-gray-600">【如：支付接口文档】</td><td class="px-4 py-2 text-gray-600">【日期】</td><td class="px-4 py-2 text-gray-600 text-red-500">【如：接口延迟将影响上线】</td></tr>
+                            <tr><td class="px-4 py-2 font-medium">【如：设计组】</td><td class="px-4 py-2 text-gray-600">【如：高保真设计稿】</td><td class="px-4 py-2 text-gray-600">【日期】</td><td class="px-4 py-2 text-gray-600">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">10.3 风险识别</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">风险</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">概率</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">影响</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">应对措施</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            <tr>
+                                <td class="px-4 py-2 font-medium">【如：接口延期】</td>
+                                <td class="px-4 py-2"><span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs">中</span></td>
+                                <td class="px-4 py-2"><span class="px-2 py-1 bg-red-100 text-red-800 rounded text-xs">高</span></td>
+                                <td class="px-4 py-2 text-gray-600">【预案：使用Mock数据】</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section 11: FAQ -->
+            <section id="faq" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">11. FAQ（选填）</h2>
+                <div class="space-y-4">
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h4 class="font-bold text-gray-800 flex items-start"><span class="text-blue-500 mr-2">Q:</span>【如：用户取消订单后多久能退款？】</h4>
+                        <p class="text-gray-600 mt-2 flex items-start"><span class="text-green-500 font-bold mr-2">A:</span>【T+1工作日内原路返回】</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Acceptance -->
+            <section id="acceptance" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">12. 验收标准</h2>
+                
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">12.1 功能验收</h3>
+                <div class="overflow-x-auto mb-6">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">功能点</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">验收条件</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-500">验证方式</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            <tr><td class="px-4 py-2 font-medium">【功能1】</td><td class="px-4 py-2 text-gray-600">【满足什么条件算验收通过】</td><td class="px-4 py-2 text-gray-600">【如：手动测试】</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">12.2 验收 Checklist</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li class="flex items-center"><input type="checkbox" class="mr-2 rounded text-blue-600 focus:ring-blue-500" disabled> 【功能1】符合需求描述</li>
+                    <li class="flex items-center"><input type="checkbox" class="mr-2 rounded text-blue-600 focus:ring-blue-500" disabled> 页面交互符合设计稿</li>
+                    <li class="flex items-center"><input type="checkbox" class="mr-2 rounded text-blue-600 focus:ring-blue-500" disabled> 边界条件处理正确</li>
+                </ul>
+            </section>
+
+            <!-- Section 13: Roadmap -->
+            <section id="roadmap" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">13. 后续规划（选填）</h2>
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex-1 bg-green-50 p-5 rounded-lg border border-green-100">
+                        <h3 class="font-bold text-green-800 mb-3">短期规划 (1-3 个月)</h3>
+                        <ul class="list-disc pl-5 text-sm text-green-700 space-y-1">
+                            <li>【规划项1】</li>
+                        </ul>
+                    </div>
+                    <div class="flex-1 bg-blue-50 p-5 rounded-lg border border-blue-100">
+                        <h3 class="font-bold text-blue-800 mb-3">中期规划 (3-6 个月)</h3>
+                        <ul class="list-disc pl-5 text-sm text-blue-700 space-y-1">
+                            <li>【规划项1】</li>
+                        </ul>
+                    </div>
+                    <div class="flex-1 bg-purple-50 p-5 rounded-lg border border-purple-100">
+                        <h3 class="font-bold text-purple-800 mb-3">长期规划 (6-12 个月)</h3>
+                        <ul class="list-disc pl-5 text-sm text-purple-700 space-y-1">
+                            <li>【规划项1】</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 14: Appendix -->
+            <section id="appendix" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 pb-2 border-b border-gray-200">14. 附录（选填）</h2>
+                
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">14.1 术语表</h3>
+                <div class="overflow-x-auto mb-6">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm border border-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr><th class="px-4 py-2 text-left font-medium text-gray-500 w-1/3">术语</th><th class="px-4 py-2 text-left font-medium text-gray-500">定义</th></tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            <tr><td class="px-4 py-2 font-medium">【术语1】</td><td class="px-4 py-2 text-gray-600">【定义】</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">14.2 参考文档</h3>
+                <ul class="list-disc pl-5 text-sm text-blue-600 space-y-2">
+                    <li><a href="#" class="hover:underline">【如：产品Roadmap】</a></li>
+                    <li><a href="#" class="hover:underline">【如：竞品分析报告】</a></li>
+                </ul>
+            </section>
+
+        </div>
+        
+        <!-- Footer -->
+        <footer class="max-w-5xl mx-auto mt-12 pt-6 border-t border-gray-200 text-center text-gray-500 text-sm pb-8">
+            <p>【产品/项目名称】 PRD v1.0 | 仅供内部参考与演示</p>
+            <p class="mt-1">基于详细PRD模板自动生成</p>
+        </footer>
+    </main>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { primaryColor: '#f8fafc', primaryBorderColor: '#cbd5e1', lineColor: '#94a3b8', textColor: '#334155' } });
+
+        // Accordion Logic
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('open');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Scroll Spy for Navigation
+        const mainContent = document.getElementById('main-content');
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        mainContent.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (mainContent.scrollTop >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Initial setup
+        if(navLinks.length > 0) {
+            navLinks[0].classList.add('active');
+        }
+
+        // Mobile Sidebar Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+        const sidebar = document.getElementById('sidebar');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+
+        function openSidebar() {
+            if(sidebar) sidebar.classList.remove('-translate-x-full');
+            if(mobileOverlay) mobileOverlay.classList.remove('hidden');
+        }
+
+        function closeSidebar() {
+            if(sidebar) sidebar.classList.add('-translate-x-full');
+            if(mobileOverlay) mobileOverlay.classList.add('hidden');
+        }
+
+        if(mobileMenuBtn && closeSidebarBtn && sidebar && mobileOverlay) {
+            mobileMenuBtn.addEventListener('click', openSidebar);
+            closeSidebarBtn.addEventListener('click', closeSidebar);
+            mobileOverlay.addEventListener('click', closeSidebar);
+            
+            // Close sidebar when clicking a nav link on mobile
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 768) {
+                        closeSidebar();
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
