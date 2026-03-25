@@ -28,7 +28,7 @@
 3. **最终交付**：定稿原型 + 可交互 PRD 文档
 4. **原型托管（可选）**：结合 Vibe Coding 原型托管项目，实现与原型对话能力
 
-**原型托管平台**: 暂未开源
+**原型托管平台**: [AxureShare](https://github.com/aicezam/AxureShare)
 
 ![示例](./example_01.png)
 
